@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./dist/output.css">
+  <script src="https://use.fontawesome.com/fed7a163da.js"></script>
+
+  <title>Hardware Monitoring Suite</title>
+</head>
+
+<body>
+
+
+
+
+  <div class="flex flex-row  min-h-screen  ">
+    <div
+      class="bg-slate-600 w-max  flex flex-col align-middle p-4  divide-y divide-solid divide-purple-500 active:divide-purple-500 ">
+      <div class="flex flex-col align-middle ">
+        <div class=" text-center"><a href=""><i class="fa fa-desktop fa-2x text-purple-500 " aria-hidden="true"></i></a>
+
+        </div>
+        <div class="  font-mono  text-center text-xl subpixel-antialiased text-black">
+          <h1>HMS
+          </h1>
+        </div>
+      </div>
+      <div class="mt-2  ">
+
+        <a href="./index.html">
+          <div
+            class="text-center  rounded-lg p-4 bg-gray-400   hover:bg-purple-500 active:bg-gray-500  focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg text-black">
+            <button><i class="fa fa-home" aria-hidden="true"></i> Home</button>
+          </div>
+        </a>
+
+        <a href="./Home.html">
+          <div
+            class="text-center rounded-lg  p-4 bg-gray-400 hover:bg-purple-500 active:bg-gray- focus:outline-none focus:ring focus:ring-violet-300 m-3  shadow-lg text-black">
+            <button><i class="fa fa-medkit" aria-hidden="true"></i>Diagnostics</button>
+          </div>
+        </a>
+
+        <a href="./usageChart.html">
+          <div
+            class="text-center rounded-lg p-4  bg-gray-400  hover:bg-purple-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg text-black">
+            <button><i class="fa fa-pie-chart" aria-hidden="true"></i> Usage Chart</button>
+          </div>
+        </a>
+
+        <a href="./news.html">
+          <div
+            class="text-center rounded-lg  p-4 bg-gray-400 hover:bg-purple-500 active:bg-gray- focus:outline-none focus:ring focus:ring-violet-300 m-3  shadow-lg text-black">
+            <button><i class="fa fa-newspaper-o" aria-hidden="true"></i> News</button>
+          </div>
+        </a>
+
+        <!-- <a href="">
+          <div
+            class="text-center  rounded-lg p-4 bg-gray-400   hover:bg-purple-500 active:bg-gray-500  focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg ">
+            <button class="text-black"><i class="fa fa-angle-double-up text-black" aria-hidden="true"></i>
+              Upgrades</button>
+          </div>
+        </a> -->
+
+        <a href="./about.html">
+          <div
+            class="text-center rounded-lg p-4  bg-gray-400  hover:bg-purple-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg">
+            <button class="text-black"><i class="fa fa-question-circle-o" aria-hidden="true"></i> About</button>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+
+
+
+    <div class=" min-h-max  p-3 w-screen bg-gray-800 text-black overflow-scroll   ">
+
+      <div
+        class="min-h-screen  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl bg-gray-400  shadow-lg  ">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class=" text-left  font-sans text-lg font-semibold  pl-2 mb-1 cursor-pointer " id="top" title="jai hind">
+
+            Tech News
+          </h1>
+
+
+        <div class=" text-left pl-2 break-all pt-2 overflow-y-auto" id="output">
+
+        </div>
+
+      </div>
+      <div class="flex flex-row justify-between">
+
+
+
+          <button class=" ml-2 bg-purple-500 w-fit h-fit border-2 border-purple-500 hover:border-purple-400 " onclick="previousPage()"><i class="fa fa-angle-left " aria-hidden="true"></i> <a href="#top"> Previous</a> </button>
+          <button class="text-right mr-2 bg-purple-500 w-fit h-fit border-2 border-purple-500 hover:border-purple-400 " onclick="nextPage()"> <a href="#top">Next</a> <i class="fa fa-angle-right" aria-hidden="true"  ></i></button>
+        </div>
+      </div>
+      </div>
+
+
+  </div>
+  <script src="script.js"></script>
+
+
+</body>

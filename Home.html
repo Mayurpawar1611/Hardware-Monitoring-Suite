@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./dist/output.css">
+  <script src="https://use.fontawesome.com/fed7a163da.js"></script>
+  <script>
+const { ipcRenderer } = require('electron')
+ipcRenderer.send('pythonProgram3')
+    ipcRenderer.on('pythonProgram3', (e, data) => {
+
+      console.log(data);
+
+      for (i in data ) {
+       if(i%2==0){
+          let fan1 = document.createElement("p");
+          fan1.className="inline-block  mt-5 text-lg font-sans  font-semibold text-black";
+          fan1.innerHTML=data[i]
+          document.getElementById("fanData").appendChild(fan1);
+       }
+       if(i%2!=0){
+        let fan2 = document.createElement("span");
+        fan2.className=" text-xl font-sans font-normal text-black";
+        fan2.innerHTML=data[i]
+          document.getElementById("fanData").appendChild(fan2);
+          let br =document.createElement('br')
+          fan2.appendChild(br)
+
+        }
+      }
+      })
+ipcRenderer.send('pythonProgram2')
+    ipcRenderer.on('pythonProgram2', (e, data) => {
+
+      console.log(data);
+
+      for (i in data ) {
+       if(i%2==0){
+          let power1 = document.createElement("p");
+          power1.className="inline-block  mt-5 text-lg font-sans  font-semibold text-black";
+          power1.innerHTML=data[i]
+          document.getElementById("powerData").appendChild(power1);
+       }
+       if(i%2!=0){
+        let power2 = document.createElement("span");
+        power2.className=" text-xl font-sans font-normal text-black";
+        power2.innerHTML=data[i]
+          document.getElementById("powerData").appendChild(power2);
+          let br =document.createElement('br')
+          power2.appendChild(br)
+
+        }
+      }
+      })
+
+
+
+    ipcRenderer.send('pythonProgram1')
+    ipcRenderer.on('pythonProgram1', (e, data) => {
+      let cpuLoad=data[0];
+      let hddLoad=data[1]
+
+      console.log(data);
+
+      for (i in cpuLoad ) {
+       if(i%2==0){
+          let gpuTemps1 = document.createElement("p");
+          gpuTemps1.className="inline-block  mt-5 text-lg font-sans  font-semibold text-black";
+          gpuTemps1.innerHTML=cpuLoad[i]
+          document.getElementById("loadData").appendChild(gpuTemps1);
+       }
+       if(i%2!=0){
+        let gpuTemps2 = document.createElement("span");
+          gpuTemps2.className=" text-xl font-sans font-normal text-black";
+          gpuTemps2.innerHTML=cpuLoad[i]
+          document.getElementById("loadData").appendChild(gpuTemps2);
+          let br =document.createElement('br')
+          gpuTemps2.appendChild(br)
+       }
+       }
+       for (i in hddLoad) {
+       if(i%2==0){
+          let  hddLoad1 = document.createElement("p");
+          hddLoad1.className="inline-block  mt-5 text-lg font-sans  font-semibold text-black";
+          hddLoad1.innerHTML=hddLoad[i]
+          document.getElementById("hddLoad").appendChild( hddLoad1);
+       }
+       if(i%2!=0){
+        let  hddLoad2 = document.createElement("span");
+        hddLoad2.className=" text-xl font-sans font-normal text-black";
+        hddLoad2.innerHTML=hddLoad[i]
+        document.getElementById("hddLoad").appendChild( hddLoad2);
+        let br =document.createElement('br')
+        hddLoad2.appendChild(br)
+       }
+       }
+    })
+      ipcRenderer.send('pythonProgram')
+    ipcRenderer.on('pythonProgram', (e, data) => {
+      let cpuTemps=data[0];
+      let hddTemps=data[1];
+      console.log(data);
+
+      for (i in cpuTemps ) {
+       if(i%2==0){
+          let cpuTemps1 = document.createElement("p");
+          cpuTemps1.className="inline-block  mt-5 text-lg font-sans  font-semibold text-black";
+          cpuTemps1.innerHTML=cpuTemps[i]
+          document.getElementById("tempsData").appendChild(cpuTemps1);
+
+
+       }
+       if(i%2!=0){
+        let cpuTemps2 = document.createElement("span");
+          cpuTemps2.className=" text-xl font-sans font-normal text-black";
+          cpuTemps2.innerHTML=cpuTemps[i]
+          document.getElementById("tempsData").appendChild(cpuTemps2);
+          let br =document.createElement('br')
+          cpuTemps2.appendChild(br)
+
+       }
+
+        }
+        for (i in hddTemps ) {
+          console.log(hddTemps)
+          if(i%2==0){
+
+
+        let hddTemps1 = document.createElement("p");
+        hddTemps1.className = "inline-block mt-5 text-lg font-sans  font-semibold text-black";
+        hddTemps1.innerHTML = hddTemps[i] ;
+        document.getElementById("hddData").appendChild(hddTemps1);
+       }
+       if(i%2!=0){
+
+        let hddTemps2 = document.createElement("span");
+        hddTemps2.className = "text-xl font-sans font-normal text-black";
+        hddTemps2.innerHTML = hddTemps[i]
+        document.getElementById("hddData").appendChild(hddTemps2);
+        let br =document.createElement('br')
+        hddTemps2.appendChild(br)
+       }
+      }
+    })
+  </script>
+  <title>Hardware Monitoring Suite</title>
+</head>
+
+<body>
+
+  <div class="flex flex-row  min-h-screen  ">
+    <div class="bg-slate-600 text-white w-max  flex flex-col align-middle p-4  divide-y divide-solid divide-purple-400">
+      <div class="flex flex-col align-middle ">
+        <div class=" text-center"><a href=""><i class="fa fa-desktop fa-2x text-purple-500" aria-hidden="true"></i></a>
+
+        </div>
+        <div class="  font-mono text-center text-xl subpixel-antialiased text-black">
+          <h1>HMS
+          </h1>
+        </div>
+      </div>
+      <div class="mt-2  ">
+
+        <a href="./index.html">
+          <div
+            class="text-center  rounded-lg p-4 bg-gray-400   hover:bg-purple-500 active:bg-gray-500  focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg text-black">
+            <button><i class="fa fa-home" aria-hidden="true"></i> Home</button>
+          </div>
+        </a>
+
+        <a href="./Home.html">
+          <div
+            class="text-center rounded-lg  p-4 bg-gray-400 hover:bg-purple-500 active:bg-gray- focus:outline-none focus:ring focus:ring-violet-300 m-3  shadow-lg text-black">
+            <button><i class="fa fa-medkit" aria-hidden="true"></i>Diagnostics</button>
+          </div>
+        </a>
+
+        <a href="./usageChart.html">
+          <div
+            class="text-center rounded-lg p-4  bg-gray-400  hover:bg-purple-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg text-black">
+            <button><i class="fa fa-pie-chart" aria-hidden="true"></i> Usage Chart</button>
+          </div>
+        </a>
+
+        <a href="./news.html">
+          <div
+            class="text-center rounded-lg  p-4 bg-gray-400 hover:bg-purple-500 active:bg-gray- focus:outline-none focus:ring focus:ring-violet-300 m-3  shadow-lg text-black">
+            <button><i class="fa fa-newspaper-o" aria-hidden="true"></i> News</button>
+          </div>
+        </a>
+
+        <!-- <a href="">
+          <div
+            class="text-center  rounded-lg p-4 bg-gray-400   hover:bg-purple-500 active:bg-gray-500  focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg ">
+            <button class="text-black"><i class="fa fa-angle-double-up text-black" aria-hidden="true"></i>
+              Upgrades</button>
+          </div>
+        </a> -->
+
+        <a href="./about.html">
+          <div
+            class="text-center rounded-lg p-4  bg-gray-400  hover:bg-purple-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg">
+            <button class="text-black"><i class="fa fa-question-circle-o" aria-hidden="true"></i> About</button>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="grid gap-0 grid-rows-2  grid-cols-3  p-3 w-screen bg-gray-800 text-white     ">
+
+
+      <div
+        class=" w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-400 hover:border-purple-400 flex-grow text-center rounded-xl  bg-gray-400   shadow-lg ">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1 text-black">GPU Load<i
+              class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true" title="CPU info"></i>
+          </h1>
+          <div class=" text-left pl-2 break-all pt-2" id="loadData">
+
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl bg-gray-400  shadow-lg">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1 text-black">CPU Core Temps<i
+              class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true" title="CPU info"></i>
+          </h1>
+          <div class=" text-left pl-2 break-all pt-2 ">
+            <div  class="text-lg font-sans  font-semibold text-black" id="tempsData"></div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl  bg-gray-400  shadow-lg">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1 text-black">HDD Used Space<i
+              class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true" title="RAM info"></i>
+          </h1>
+          <div class=" text-left pl-2 break-all pt-2" id="hddLoad">
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        class="w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl  bg-gray-400  shadow-lg">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1 text-black">HDD Temperatures<i
+              class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true"
+              title="Graphics info"></i></h1>
+          <div class=" text-left pl-2 break-all pt-2" id="hddData">
+
+          </div>
+          <!-- gpu -->
+        </div>
+      </div>
+      <div
+        class="w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl  bg-gray-400  shadow-lg">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1 text-black">Power Supply
+            <i class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true" title="div5"></i>
+          </h1>
+
+
+          <div class=" text-left pl-2 break-all pt-2 mb-5" id="powerData">
+
+          </div>
+
+        </div>
+      </div>
+      <div
+        class="w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl  bg-gray-400  shadow-lg">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1  text-black">Fan Speed<i
+              class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true" title="div6"></i></h1>
+
+
+          <div class=" text-left pl-2 break-all pt-2  " id="fanData">
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+</body>

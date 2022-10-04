@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./dist/output.css">
+  <script src="https://use.fontawesome.com/fed7a163da.js"></script>
+  <script>
+    const { ipcRenderer } = require('electron')
+
+
+    setInterval(function () {
+      ipcRenderer.send('memory');
+
+    }, 1000);
+
+    setInterval(function () {
+      console.log("test");
+      ipcRenderer.send('cpu-temp-info');
+      // Doesn't work yet
+      // Needs admin permissions, start from Powershell(admin)
+    }, 1000);
+
+    ipcRenderer.on('show-driverWindow', (e) => {
+      showOne("driver");
+    });
+    ipcRenderer.on('show-home', (e) => {
+      showOne("home");
+    });
+
+    //os details
+    ipcRenderer.send('os-info')
+    ipcRenderer.on('os-info', (e, data) => {
+      document.getElementById("osDetail0").innerHTML = data[0];
+    });
+
+    //cpu details
+    ipcRenderer.send('cpu-info')
+    ipcRenderer.on('cpu-info', (e, data) => {
+      document.getElementById("cpuDetail0").innerHTML = data[0];
+      document.getElementById("cpuDetail1").innerHTML = data[1];
+      document.getElementById("cpuDetail2").innerHTML = data[2];
+    });
+
+
+    // ipcRenderer.on('cpu-temp-info', (e, data) => {
+    //   document.getElementById("cpuTempDetail0").innerHTML = data[0];
+    //   document.getElementById("cpuTempDetail1").innerHTML = data[1];
+    //   document.getElementById("cpuTempDetail2").innerHTML = data[2];
+    // });
+
+    //gpu details
+    ipcRenderer.send('gpu-info')
+    ipcRenderer.on('gpu-info', (e, data) => {
+      document.getElementById("gpuDetail0").innerHTML = data[0];
+      document.getElementById("gpuDetail1").innerHTML = data[1] + " GB";
+      document.getElementById("gpuDetail2").innerHTML = data[2];
+      document.getElementById("gpuDetail3").innerHTML = data[3];
+      document.getElementById("gpuDetail4").innerHTML = data[4];
+      document.getElementById("gpuDetail5").innerHTML = data[5];
+      document.getElementById("gpuDetail6").innerHTML = data[6];
+    });
+
+    //os details
+
+    ipcRenderer.on('memory', (e, data) => {
+      document.getElementById("memo0").innerHTML = data[0].toFixed(2) + " GB";
+      document.getElementById("memo1").innerHTML = data[1].toFixed(2) + " GB";
+    });
+
+    //pc information
+    ipcRenderer.send('com')
+    ipcRenderer.on('com', (e, data) => {
+      document.getElementById("pcDetail0").innerHTML = data[0].toFixed(2) + " mins";
+      document.getElementById("osDetail1").innerHTML = data[1];
+    });
+
+
+  </script>
+  <title>Hardware Monitoring Suite</title>
+</head>
+
+<body>
+
+  <div class="flex flex-row  min-h-screen  ">
+    <div class="bg-slate-600 text-white w-max  flex flex-col align-middle p-4  divide-y divide-solid divide-purple-400">
+      <div class="flex flex-col align-middle ">
+        <div class=" text-center"><a href=""><i class="fa fa-desktop fa-2x text-purple-500" aria-hidden="true"></i></a>
+
+        </div>
+        <div class="  font-mono text-center text-xl subpixel-antialiased text-black">
+          <h1>HMS
+          </h1>
+        </div>
+      </div>
+      <div class="mt-2  ">
+
+        <a href="./index.html">
+          <div
+            class="text-center  rounded-lg p-4 bg-gray-400   hover:bg-purple-500 active:bg-gray-500  focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg text-black">
+            <button><i class="fa fa-home" aria-hidden="true"></i> Home</button>
+          </div>
+        </a>
+
+        <a href="./Home.html">
+          <div
+            class="text-center rounded-lg  p-4 bg-gray-400 hover:bg-purple-500 active:bg-gray- focus:outline-none focus:ring focus:ring-violet-300 m-3  shadow-lg text-black">
+            <button><i class="fa fa-medkit" aria-hidden="true"></i>Diagnostics</button>
+          </div>
+        </a>
+
+        <a href="./usageChart.html">
+          <div
+            class="text-center rounded-lg p-4  bg-gray-400  hover:bg-purple-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg text-black">
+            <button><i class="fa fa-pie-chart" aria-hidden="true"></i> Usage Chart</button>
+          </div>
+        </a>
+
+        <a href="./news.html">
+          <div
+            class="text-center rounded-lg  p-4 bg-gray-400 hover:bg-purple-500 active:bg-gray- focus:outline-none focus:ring focus:ring-violet-300 m-3  shadow-lg text-black">
+            <button><i class="fa fa-newspaper-o" aria-hidden="true"></i> News</button>
+          </div>
+        </a>
+
+        <!-- <a href="">
+          <div
+            class="text-center  rounded-lg p-4 bg-gray-400   hover:bg-purple-500 active:bg-gray-500  focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg ">
+            <button class="text-black"><i class="fa fa-angle-double-up text-black" aria-hidden="true"></i>
+              Upgrades</button>
+          </div>
+        </a> -->
+
+        <a href="./about.html">
+          <div
+            class="text-center rounded-lg p-4  bg-gray-400  hover:bg-purple-500 active:bg-gray-500 focus:outline-none focus:ring focus:ring-violet-300 m-3 shadow-lg">
+            <button class="text-black"><i class="fa fa-question-circle-o" aria-hidden="true"></i> About</button>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="grid gap-0 grid-rows-2  grid-cols-2  p-3 w-screen bg-gray-800 text-white     ">
+
+
+      <div
+        class=" w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-400 hover:border-purple-400 flex-grow text-center rounded-xl  bg-gray-400   shadow-lg ">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1 text-black">OS<i
+              class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true" title="CPU info"></i>
+          </h1>
+          <div class=" text-left pl-2 break-all pt-2">
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">OS Architecture : <span id="osDetail0"
+                class="text-xl font-sans font-normal text-black"></span></p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">OS Type : <span id="osDetail1"
+                class="text-xl font-sans font-normal text-black"></span></p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Uptime : <span id="pcDetail0"
+                class="text-xl font-sans font-normal text-black"></span> </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl bg-gray-400  shadow-lg">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1 text-black">CPU<i
+              class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true" title="CPU info"></i>
+          </h1>
+          <div class=" text-left pl-2 break-all pt-2 ">
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Manufacturer : <span id="cpuDetail0"
+                class="text-xl font-sans font-normal text-black"></span></p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Model : <span id="cpuDetail1"
+                class="text-xl font-sans font-normal text-black"></span></p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Threads : <span id="cpuDetail2"
+                class="text-xl font-sans font-normal text-black"></span></p>
+<!--
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Main: <span id="cpuTempDetail0"
+                class="text-xl font-sans font-normal text-black"></span></p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Max: <span id="cpuTempDetail1"
+                class="text-xl font-sans font-normal text-black"></span></p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Cores: <span id="cpuTempDetail2"
+                class="text-xl font-sans font-normal text-black"></span></p> -->
+
+          </div>
+        </div>
+      </div>
+      <div
+        class="w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl  bg-gray-400  shadow-lg">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1 text-black">RAM<i
+              class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true" title="RAM info"></i>
+          </h1>
+          <div class=" text-left pl-2 break-all pt-2">
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Total Memory (RAM) : <span id="memo0"
+                class="text-xl font-sans font-normal text-black"> </span> </p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Free Memory (RAM) : <span id="memo1"
+                class="text-xl font-sans font-normal text-black"> </span> </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        class="w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl  bg-gray-400  shadow-lg">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1 text-black">Graphics<i
+              class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true"
+              title="Graphics info"></i></h1>
+          <div class=" text-left pl-2 break-all pt-2">
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">GPU : <span id="gpuDetail0"
+                class="text-xl font-sans font-normal text-black"></span></p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">VRAM : <span id="gpuDetail1"
+                class="text-xl font-sans font-normal text-black"></span> </p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Dynamic : <span id="gpuDetail2"
+                class="text-xl font-sans font-normal text-black"></span></p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Display : <span id="gpuDetail3"
+                class="text-xl font-sans font-normal text-black"></span></p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Model : <span id="gpuDetail4"
+                class="text-xl font-sans font-normal text-black"></span></p>
+
+            <p class="mt-5 text-xl font-sans  font-semibold text-black">Resolution : <span id="gpuDetail5"
+                class="text-xl font-sans font-normal text-black"></span> x <span id="gpuDetail6"
+                class="text-xl font-sans font-normal text-black "></span></p>
+          </div>
+          <!-- gpu -->
+        </div>
+      </div>
+      <!-- <div
+        class="w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl  bg-gray-400  shadow-lg">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1 text-black">CPU Core Temps
+            <i class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true" title="div5"></i>
+          </h1>
+
+
+          <div class=" text-left pl-2 break-all pt-2 mb-5">
+
+          </div>
+
+        </div> -->
+      </div>
+      <!-- <div
+        class="w-10/12 h-5/6  m-4 p-2 border-2 justify-self-center border-purple-500 hover:border-purple-400 flex-grow text-center rounded-xl  bg-gray-400  shadow-lg">
+        <div class="flex flex-col divide-y divide-solid divide-purple-500 active:divide-purple-500">
+          <h1 class="flex justify-between gap-1 font-sans text-lg font-semibold  pl-2 mb-1  text-black">HDD Temps<i
+              class="fa fa-info-circle pt-1 pr-1 cursor-pointer text-black" aria-hidden="true" title="div6"></i></h1>
+
+
+          <div class=" text-left pl-2 break-all pt-2  ">
+            <!-- <div id="hddData" class="mb-5 text-lg font-sans  font-semibold text-black"></div> -->
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+</body>
